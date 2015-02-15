@@ -10,8 +10,13 @@ Perhaps these efforts will also lead to improvements of the bitcoin core code.
 
 What is the aim of this project?
 --------------------------------
-The aim of this project is to write a clearly structured implementation of the bitcoin
-protocol. Any unnecessary overhead should be avoided.
+The aim of this project is to write a clearly structured, well documented
+implementation of the bitcoin protocol. Any unnecessary overhead should be
+avoided.
+
+Code style guidelines
+---------------------
+At first look at existing code to follow the style guidelines.
 
 License
 -------
