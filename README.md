@@ -24,7 +24,7 @@ Pull requests should contain a single commit, which adds or changes one specific
 
 Build system
 ------------
-At first the code is developed using the IDE Code::Blocks. Using autotools later is planned.
+A C++11 compiler is required. At first the code is developed using the IDE Code::Blocks with gcc-4.8.1. Using autotools later is planned.
 
 Roadmap
 -------
