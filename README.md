@@ -18,6 +18,19 @@ Code style guidelines
 ---------------------
 At first look at existing code to follow the style guidelines.
 
+Pull requests
+-------------
+Pull requests should contain a single commit, which adds or changes one specific unit.
+
+Roadmap
+-------
+- write test code (ongoing)
+- communication with peers
+- download and verification of blockchain
+- wallet, create transactions
+- rpc server
+- ...
+
 License
 -------
 The project is released under the terms of the MIT license. See LICENSE for
