@@ -22,6 +22,10 @@ Pull requests
 -------------
 Pull requests should contain a single commit, which adds or changes one specific unit.
 
+Build system
+------------
+At first the code is developed using the IDE Code::Blocks. Using autotools later is planned.
+
 Roadmap
 -------
 - write test code (ongoing)
