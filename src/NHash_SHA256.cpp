@@ -131,3 +131,9 @@ void NHash::SHA256(const void * data, const uint64_t length, uint8_t hash[32])
         memcpy(&hash[n * 4], &h, 4);
     }
 }
+
+void NHash::SHA256x2(const void * data, const uint64_t length, uint8_t hash[32])
+{
+    SHA256(data, length, hash);
+    SHA256(hash, 32, hash);
+}

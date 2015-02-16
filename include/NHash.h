@@ -18,6 +18,13 @@ namespace NHash
     /// @note - process only data which length is a multiple of bytes
     /// @note - slower than implementation in bitcoin core
     void SHA256(const void * data, const uint64_t length, uint8_t hash[32]);
+
+    /// \brief Executes the SHA256 algorithm two times.
+    /// @see SHA256
+    /// @param data pointer to data of any type to calculate hash from
+    /// @param length length of data in bytes
+    /// @param hash hash calculated by function
+    void SHA256x2(const void * data, const uint64_t length, uint8_t hash[32]);
 }
 
 #endif // NHASH_H
