@@ -1,22 +1,7 @@
 #include "NHash.h"
 
+#include "SwapByteOrder.h"
 #include <cstring>
-
-// swap byte order of 32Bit data type
-uint32_t inline getBigEndian32(const uint32_t * p)
-{
-    return (*p & 0x000000FF) << 24 | (*p & 0xFF000000) >> 24 |
-           (*p & 0x0000FF00) <<  8 | (*p & 0x00FF0000) >>  8;
-}
-
-// swap byte order of 64Bit data type
-uint64_t inline getBigEndian64(const uint64_t * p)
-{
-    return (*p & 0x00000000000000FF) << 56 | (*p & 0xFF00000000000000) >> 56 |
-           (*p & 0x000000000000FF00) << 40 | (*p & 0x00FF000000000000) >> 40 |
-           (*p & 0x0000000000FF0000) << 24 | (*p & 0x0000FF0000000000) >> 24 |
-           (*p & 0x00000000FF000000) <<  8 | (*p & 0x000000FF00000000) >>  8;
-}
 
 // fips-180-4.pdf (4.1.2)
 uint32_t inline  Ch(uint32_t x, uint32_t y, uint32_t z) { return (x & y) ^ (~x & z); }
@@ -55,7 +40,7 @@ void processMessageBlock(const void * pDataBlock, uint32_t * H)
     h = H[7];
 
     for(uint32_t t = 0; t < 16; t++) {
-        W[t] = getBigEndian32(p32DataBlock + t);
+        W[t] = swapByteOrder4B(p32DataBlock + t);
     }
     for(uint32_t t = 16; t < 64; t++) {
         W[t] = sigma1(W[t - 2]) + W[t - 7] + sigma0(W[t - 15]) + W[t - 16];
@@ -117,7 +102,7 @@ void NHash::SHA256(const void * data, const uint64_t length, uint8_t hash[32])
     }
     // ... and by length in bit
     uint64_t nLengthInBits          = length * 8;
-    uint64_t nLengthInBitsBigEndian = getBigEndian64(&nLengthInBits);
+    uint64_t nLengthInBitsBigEndian = swapByteOrder8B(&nLengthInBits);
     memcpy(&lastBlocks[nRemainingBytes - 8], &nLengthInBitsBigEndian, 8);
     // process blocks
     for(uint8_t n = 0; n < nRemainingBytes; n += 64) {
@@ -127,7 +112,7 @@ void NHash::SHA256(const void * data, const uint64_t length, uint8_t hash[32])
 
     // copy hash value
     for(uint8_t n = 0; n < 8; n++) {
-        uint32_t h = getBigEndian32(&H[n]);
+        uint32_t h = swapByteOrder4B(&H[n]);
         memcpy(&hash[n * 4], &h, 4);
     }
 }
