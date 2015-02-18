@@ -1,6 +1,6 @@
 #include "NHash.h"
 
-#include "SwapByteOrder.h"
+#include "NEndian.h"
 #include <cstring>
 
 // fips-180-4.pdf (4.1.2)
@@ -12,7 +12,7 @@ uint32_t inline sigma0(uint32_t x) { return (x >>  7 | x << 25) ^ (x >> 18 | x <
 uint32_t inline sigma1(uint32_t x) { return (x >> 17 | x << 15) ^ (x >> 19 | x << 13) ^ (x >> 10); }
 
 // fips-180-4.pdf (4.2.2)
-const uint32_t SHA256Constants[64] = {
+const uint32_t K[64] = {
     0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
     0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
     0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
@@ -40,14 +40,15 @@ void processMessageBlock(const void * pDataBlock, uint32_t * H)
     h = H[7];
 
     for(uint32_t t = 0; t < 16; t++) {
-        W[t] = swapByteOrder4B(p32DataBlock + t);
+        // byte order is critical here
+        W[t] = NEndian::getBigEndian4B(p32DataBlock + t);
     }
     for(uint32_t t = 16; t < 64; t++) {
         W[t] = sigma1(W[t - 2]) + W[t - 7] + sigma0(W[t - 15]) + W[t - 16];
     }
     for(uint32_t t = 0; t < 64; t++) {
         uint32_t T1, T2;
-        T1 = h + Sigma1(e) + Ch(e, f, g) + SHA256Constants[t] + W[t];
+        T1 = h + Sigma1(e) + Ch(e, f, g) + K[t] + W[t];
         T2 = Sigma0(a) + Maj(a, b, c);
         h = g;
         g = f;
@@ -73,7 +74,7 @@ void NHash::SHA256(const void * data, const uint64_t length, uint8_t hash[32])
 {
     uint8_t * dataBytes = (uint8_t *)data;
 
-    // initialize hash
+    // initialize hash, fips-180-4.pdf (5.3.3)
     uint32_t H[8] = {
         0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a,
         0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19
@@ -102,7 +103,7 @@ void NHash::SHA256(const void * data, const uint64_t length, uint8_t hash[32])
     }
     // ... and by length in bit
     uint64_t nLengthInBits          = length * 8;
-    uint64_t nLengthInBitsBigEndian = swapByteOrder8B(&nLengthInBits);
+    uint64_t nLengthInBitsBigEndian = NEndian::getBigEndian8B(&nLengthInBits);
     memcpy(&lastBlocks[nRemainingBytes - 8], &nLengthInBitsBigEndian, 8);
     // process blocks
     for(uint8_t n = 0; n < nRemainingBytes; n += 64) {
@@ -112,7 +113,7 @@ void NHash::SHA256(const void * data, const uint64_t length, uint8_t hash[32])
 
     // copy hash value
     for(uint8_t n = 0; n < 8; n++) {
-        uint32_t h = swapByteOrder4B(&H[n]);
+        uint32_t h = NEndian::getBigEndian4B(&H[n]);
         memcpy(&hash[n * 4], &h, 4);
     }
 }
