@@ -61,13 +61,13 @@
 			<Add option="-fexceptions" />
 			<Add directory="../boost/boost" />
 		</Compiler>
-		<Unit filename="include/Endian.h" />
+		<Unit filename="include/NEndian.h" />
 		<Unit filename="include/NHash.h" />
 		<Unit filename="main.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 		</Unit>
-		<Unit filename="src/Endian.cpp" />
+		<Unit filename="src/NEndian.cpp" />
 		<Unit filename="src/NHash_SHA256.cpp" />
 		<Unit filename="test/NHash_SHA256_tests.cpp">
 			<Option target="Test" />
