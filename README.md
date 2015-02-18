@@ -26,6 +26,10 @@ Build system
 ------------
 A C++11 compiler is required. At first the code is developed using the IDE Code::Blocks with gcc-4.8.1. Using autotools later is planned.
 
+Dependencies
+------------
+The project needs the boost library, at the moment version 1.55.0 is used.
+
 Roadmap
 -------
 - write test code (ongoing)
