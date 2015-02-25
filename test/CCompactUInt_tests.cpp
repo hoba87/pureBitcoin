@@ -3,10 +3,6 @@
 #include "CCompactUInt.h"
 #include "NEndian.h"
 
-#include <fstream>
-using std::fstream;
-using std::ios_base;
-
 class CTest
 {
 public:
