@@ -62,6 +62,7 @@
 			<Add directory="../boost/boost" />
 		</Compiler>
 		<Unit filename="include/CByteStream.h" />
+		<Unit filename="include/CCompactUInt.h" />
 		<Unit filename="include/NEndian.h" />
 		<Unit filename="include/NHash.h" />
 		<Unit filename="main.cpp">
@@ -69,9 +70,13 @@
 			<Option target="Release" />
 		</Unit>
 		<Unit filename="src/CByteStream.cpp" />
+		<Unit filename="src/CCompactUInt.cpp" />
 		<Unit filename="src/NEndian.cpp" />
 		<Unit filename="src/NHash_SHA256.cpp" />
 		<Unit filename="test/CByteStream_tests.cpp">
+			<Option target="Test" />
+		</Unit>
+		<Unit filename="test/CCompactUInt_tests.cpp">
 			<Option target="Test" />
 		</Unit>
 		<Unit filename="test/NHash_SHA256_tests.cpp">
