@@ -24,18 +24,21 @@ void NEndian::determineEndianness()
     }
 }
 
-uint16_t inline NEndian::swapByteOrder2B(const uint16_t * p)
+/// swap byte order of 16Bit unsigned int
+uint16_t inline swapByteOrder2B(const uint16_t * p)
 {
     return (*p & 0x00FF) << 8 | (*p & 0xFF00) >> 8;
 }
 
-uint32_t inline NEndian::swapByteOrder4B(const uint32_t * p)
+/// swap byte order of 32Bit unsigned int
+uint32_t inline swapByteOrder4B(const uint32_t * p)
 {
     return (*p & 0x000000FF) << 24 | (*p & 0xFF000000) >> 24 |
            (*p & 0x0000FF00) <<  8 | (*p & 0x00FF0000) >>  8;
 }
 
-uint64_t inline NEndian::swapByteOrder8B(const uint64_t * p)
+/// swap byte order of 64Bit unsigned int
+uint64_t inline swapByteOrder8B(const uint64_t * p)
 {
     return (*p & 0x00000000000000FF) << 56 | (*p & 0xFF00000000000000) >> 56 |
            (*p & 0x000000000000FF00) << 40 | (*p & 0x00FF000000000000) >> 40 |
@@ -72,6 +75,39 @@ uint64_t NEndian::getBigEndian8B(const uint64_t * p)
     }
     else if(endianness == BIG) {
         return *p;
+    }
+    return 0;
+}
+
+uint16_t NEndian::getLittleEndian2B(const uint16_t * p)
+{
+    if(endianness == LITTLE) {
+        return *p;
+    }
+    else if(endianness == BIG) {
+        return swapByteOrder2B(p);
+    }
+    return 0;
+}
+
+uint32_t NEndian::getLittleEndian4B(const uint32_t * p)
+{
+    if(endianness == LITTLE) {
+        return *p;
+    }
+    else if(endianness == BIG) {
+        return swapByteOrder4B(p);
+    }
+    return 0;
+}
+
+uint64_t NEndian::getLittleEndian8B(const uint64_t * p)
+{
+    if(endianness == LITTLE) {
+        return *p;
+    }
+    else if(endianness == BIG) {
+        return swapByteOrder8B(p);
     }
     return 0;
 }
