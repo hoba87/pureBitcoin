@@ -1,7 +1,8 @@
 #include <boost/test/unit_test.hpp>
 
-#include "CCompactUInt.h"
 #include "NEndian.h"
+#include "CByteStream.h"
+#include "CCompactUInt.h"
 
 class CTest
 {

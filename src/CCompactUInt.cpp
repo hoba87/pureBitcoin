@@ -1,6 +1,7 @@
 #include "CCompactUInt.h"
 
 #include "NEndian.h"
+#include "CByteStream.h"
 
 CCompactUInt::CCompactUInt(uint64_t uint)
 {
