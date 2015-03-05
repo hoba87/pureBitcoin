@@ -14,6 +14,9 @@ class CByteStream : public std::stringstream
     public:
         CByteStream();
         virtual ~CByteStream();
+
+        const unsigned char * cstr();
+        unsigned int length();
     protected:
     private:
 };
@@ -30,7 +33,7 @@ CByteStream & operator << (CByteStream & byteStream, const T & t)
     int size = sizeof(T);
     uint8_t * pT = (uint8_t *)&t;
     for(int i = 0; i < size; i++) {
-        static_cast<std::stringstream&>(byteStream) << pT[i];
+        byteStream.put(pT[i]);
     }
     return byteStream;
 }
@@ -41,7 +44,7 @@ CByteStream & operator >> (CByteStream & byteStream, T & t)
     int size = sizeof(T);
     uint8_t * pT = (uint8_t *)&t;
     for(int i = 0; i < size; i++) {
-        static_cast<std::stringstream&>(byteStream) >> pT[i];
+        pT[i] = byteStream.get();
     }
     return byteStream;
 }
