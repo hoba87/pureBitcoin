@@ -4,7 +4,7 @@ uint8_t NEndian::endianness;
 
 void NEndian::determineEndianness()
 {
-    endianness = ERROR;
+    endianness = eERROR;
     const uint32_t endianTestUInt32 = 0x4F8EACFB;
     uint8_t * pEndianTestUInt8P = (uint8_t *) & endianTestUInt32;
 
@@ -13,14 +13,14 @@ void NEndian::determineEndianness()
         (pEndianTestUInt8P[2] == 0x8E) &&
         (pEndianTestUInt8P[3] == 0x4F))
     {
-        endianness = LITTLE;
+        endianness = eLITTLE;
     }
     else if((pEndianTestUInt8P[0] == 0x4F) &&
             (pEndianTestUInt8P[1] == 0x8E) &&
             (pEndianTestUInt8P[2] == 0xAC) &&
             (pEndianTestUInt8P[3] == 0xFB))
     {
-        endianness = BIG;
+        endianness = eBIG;
     }
 }
 
@@ -48,10 +48,10 @@ uint64_t inline swapByteOrder8B(const uint64_t * p)
 
 uint16_t NEndian::getBigEndian2B(const uint16_t * p)
 {
-    if(endianness == LITTLE) {
+    if(endianness == eLITTLE) {
         return swapByteOrder2B(p);
     }
-    else if(endianness == BIG) {
+    else if(endianness == eBIG) {
         return *p;
     }
     return 0;
@@ -59,10 +59,10 @@ uint16_t NEndian::getBigEndian2B(const uint16_t * p)
 
 uint32_t NEndian::getBigEndian4B(const uint32_t * p)
 {
-    if(endianness == LITTLE) {
+    if(endianness == eLITTLE) {
         return swapByteOrder4B(p);
     }
-    else if(endianness == BIG) {
+    else if(endianness == eBIG) {
         return *p;
     }
     return 0;
@@ -70,10 +70,10 @@ uint32_t NEndian::getBigEndian4B(const uint32_t * p)
 
 uint64_t NEndian::getBigEndian8B(const uint64_t * p)
 {
-    if(endianness == LITTLE) {
+    if(endianness == eLITTLE) {
         return swapByteOrder8B(p);
     }
-    else if(endianness == BIG) {
+    else if(endianness == eBIG) {
         return *p;
     }
     return 0;
@@ -81,10 +81,10 @@ uint64_t NEndian::getBigEndian8B(const uint64_t * p)
 
 uint16_t NEndian::getLittleEndian2B(const uint16_t * p)
 {
-    if(endianness == LITTLE) {
+    if(endianness == eLITTLE) {
         return *p;
     }
-    else if(endianness == BIG) {
+    else if(endianness == eBIG) {
         return swapByteOrder2B(p);
     }
     return 0;
@@ -92,10 +92,10 @@ uint16_t NEndian::getLittleEndian2B(const uint16_t * p)
 
 uint32_t NEndian::getLittleEndian4B(const uint32_t * p)
 {
-    if(endianness == LITTLE) {
+    if(endianness == eLITTLE) {
         return *p;
     }
-    else if(endianness == BIG) {
+    else if(endianness == eBIG) {
         return swapByteOrder4B(p);
     }
     return 0;
@@ -103,10 +103,10 @@ uint32_t NEndian::getLittleEndian4B(const uint32_t * p)
 
 uint64_t NEndian::getLittleEndian8B(const uint64_t * p)
 {
-    if(endianness == LITTLE) {
+    if(endianness == eLITTLE) {
         return *p;
     }
-    else if(endianness == BIG) {
+    else if(endianness == eBIG) {
         return swapByteOrder8B(p);
     }
     return 0;

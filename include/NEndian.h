@@ -7,11 +7,11 @@
 /// functions can be used to return XXX Endian values from system Endian
 /// or read XXX Endian into system Endian variables
 
-#include <iostream>
-using namespace std;
+#include <cstdint>
+
 namespace NEndian
 {
-    enum eEndianness { ERROR, BIG, LITTLE };
+    enum eEndianness { eERROR, eBIG, eLITTLE };
     extern uint8_t endianness;
 
     void determineEndianness();
