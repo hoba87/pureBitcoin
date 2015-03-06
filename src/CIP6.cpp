@@ -24,6 +24,7 @@ CIP6 & CIP6::operator = (const CIP6 & ip6)
     for(int i = 0; i < 16; i++) {
         this->bytes[i] = ip6.bytes[i];
     }
+    return *this;
 }
 
 /// writes CIP6 to CByteStream
