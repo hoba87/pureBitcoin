@@ -12,15 +12,13 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
-					<Add option="-pedantic" />
-					<Add option="-std=c++11" />
 					<Add option="-pg" />
 					<Add option="-g" />
 					<Add directory="include" />
 				</Compiler>
 				<Linker>
 					<Add option="-pg -lgmon" />
-					<Add library="..\boost\build\boost\bin.v2\libs\test\build\gcc-mingw-4.8.1\debug\link-static\threading-multi\libboost_unit_test_framework-mgw48-mt-d-1_55.a" />
+					<Add library="..\boost\build\boost\bin.v2\libs\system\build\gcc-mingw-4.8.1\debug\link-static\threading-multi\libboost_system-mgw48-mt-d-1_55.a" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -31,11 +29,13 @@
 				<Compiler>
 					<Add option="-fexpensive-optimizations" />
 					<Add option="-O3" />
+					<Add option="-pedantic" />
+					<Add option="-Wextra" />
 					<Add directory="include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add library="..\boost\build\boost\bin.v2\libs\test\build\gcc-mingw-4.8.1\release\link-static\threading-multi\libboost_unit_test_framework-mgw48-mt-1_55.a" />
+					<Add library="..\boost\build\boost\bin.v2\libs\system\build\gcc-mingw-4.8.1\release\link-static\threading-multi\libboost_system-mgw48-mt-1_55.a" />
 				</Linker>
 			</Target>
 			<Target title="Test">
@@ -50,13 +50,13 @@
 				</Compiler>
 				<Linker>
 					<Add library="..\boost\build\boost\bin.v2\libs\test\build\gcc-mingw-4.8.1\release\link-static\threading-multi\libboost_unit_test_framework-mgw48-mt-1_55.a" />
+					<Add library="..\boost\build\boost\bin.v2\libs\system\build\gcc-mingw-4.8.1\release\link-static\threading-multi\libboost_system-mgw48-mt-1_55.a" />
 				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
-			<Add option="-pedantic" />
+			<Add option="-Wmain" />
 			<Add option="-std=c++11" />
-			<Add option="-Wextra" />
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 			<Add directory="../boost/boost" />
@@ -64,6 +64,7 @@
 		<Unit filename="include/CByteStream.h" />
 		<Unit filename="include/CCompactUInt.h" />
 		<Unit filename="include/CIP6.h" />
+		<Unit filename="include/CNetwork.h" />
 		<Unit filename="include/NEndian.h" />
 		<Unit filename="include/NHash.h" />
 		<Unit filename="main.cpp">
@@ -73,6 +74,7 @@
 		<Unit filename="src/CByteStream.cpp" />
 		<Unit filename="src/CCompactUInt.cpp" />
 		<Unit filename="src/CIP6.cpp" />
+		<Unit filename="src/CNetwork.cpp" />
 		<Unit filename="src/NEndian.cpp" />
 		<Unit filename="src/NHash_SHA256.cpp" />
 		<Unit filename="test/CByteStream_tests.cpp">
